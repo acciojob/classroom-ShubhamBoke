@@ -40,6 +40,7 @@ public class StudentService {
                 break;
             }
         }
+        if(stu == null || tec == null) return;
 
         HashMap<Teacher, ArrayList<Student>> STMap = studentRepository.getStudentTeacherMap();
         ArrayList<Student> studentListUnderTeacher = STMap.getOrDefault(tec, new ArrayList<>());
@@ -119,9 +120,7 @@ public class StudentService {
     public void deleteAllTeachersWithHerStudents() {
         List<Teacher> teacherList = studentRepository.getTeacherList();
         List<Teacher> teacherListCopy = new ArrayList<>();
-        for(Teacher t: teacherList){
-            teacherListCopy.add(t);
-        }
+        teacherListCopy.addAll(teacherList);
         for(Teacher t: teacherListCopy){
             deleteTeacherWithHerStudents(t.getName());
         }
